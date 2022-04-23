@@ -43,6 +43,7 @@ import { useLivePrice } from "../hooks/useLivePrice";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { BondingPlot } from "./BondingPlot";
 import { Anchor } from "antd";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
 const WRAPPED_SOL_MINT = new PublicKey("So11111111111111111111111111111111111111112")
 let first = true;
 const BlackBox = ({ children, ...other }: BoxProps) => {
@@ -77,7 +78,6 @@ export const LbcInfo = ({
   min,
   fairLaunch,
   mintPublicKey,
-  mintPublicKey2,
   fanout
 }: {members: number, 
   staked: number,
@@ -89,7 +89,6 @@ export const LbcInfo = ({
   onDeposit: any;
   min: number;
   fairLaunch: any;
-  mintPublicKey2: any;
   mintPublicKey: any;
   fanout: any;
 }) => {
@@ -134,24 +133,27 @@ export const LbcInfo = ({
   
        
     distributeForMint: false,
-    // @ts-ignore
     fanout: fanout,
-    // @ts-ignore
-    membershipMint: mintPublicKey,
-   // @ts-ignore
+    membershipMint:mintPublicKey,
     member: wallet.publicKey,
-    // @ts-ignore
     payer: wallet.publicKey
   
   }
   );
-  var  tx2 = await fanoutSdk.sendInstructions(
-  [...ix3.instructions],
-  // [...ix.instructions, ...ix3.instructions],
-  [],
-  // @ts-ignore
-  wallet.publicKey
-  );
+  var ix4= await fanoutSdk.distributeTokenMemberInstructions(//{fanout,mint:WRAPPED_SOL_MINT,payer:wallet.publicKey})// .distributeTokenMember(
+    {
+    
+         
+      distributeForMint: true,
+      fanoutMint: mintPublicKey,
+      fanout: fanout,
+      membershipMint:mintPublicKey,
+      member: wallet.publicKey,
+      payer: wallet.publicKey
+    
+    }
+    );
+  await fanoutSdk.sendInstructions([...ix3.instructions, ...ix4.instructions], [])
   }
   }
   async function doit(){

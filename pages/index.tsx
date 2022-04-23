@@ -172,7 +172,6 @@ setInterval(async function(){
     }
 }, 15500)
 }
-var mintPublicKey2 =usePublicKey("CySuu3aePXaZ46bntayBYhQ8kWkA2hYz95F1Nqx11zWz")  
 var mintPublicKey = usePublicKey("8HGyAAB1yoM1ttS7pXjHMa3dukTFGQggnFFH3hJZgzQh")
 
 
@@ -456,7 +455,6 @@ const BigText = ({ children, ...other }: TextProps) => {
     </Text>
   );
 };
-var mintPublicKey2 =usePublicKey("CySuu3aePXaZ46bntayBYhQ8kWkA2hYz95F1Nqx11zWz")  
 var mintPublicKey = usePublicKey("8HGyAAB1yoM1ttS7pXjHMa3dukTFGQggnFFH3hJZgzQh")
 var bond1 = usePublicKey("GPXeSgtNTPVmWrCSTV6FrDYUGB3iGxSZWJYerYuZNBbu")
 var tokenBondingKey = bond1
@@ -561,7 +559,6 @@ var { loading: driverLoading, ...swapProps } = useSwapDriver({
                 staked={staked}
                 total={total as number}
                 mintPublicKey={mintPublicKey}
-                mintPublicKey2={mintPublicKey2}
                 fanout={fanout}
                 min={min as number}
                 fairLaunch={fairLaunch}
