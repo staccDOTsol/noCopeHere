@@ -129,8 +129,8 @@ export const LbcInfo = ({
         // @ts-ignore
         wallet
     );
-  var ix3= await fanoutSdk.distributeTokenMemberInstructions(
-  {
+  var ix3= await fanoutSdk.distributeAll({fanout,mint:mintPublicKey,payer:wallet.publicKey})// .distributeTokenMember(
+  /*{
   
        
     distributeForMint: false,
@@ -144,14 +144,14 @@ export const LbcInfo = ({
     payer: wallet.publicKey
   
   }
-  ); 
-  var  tx2 = await fanoutSdk.sendInstructions(
-  [...ix3.instructions],
+  );*/ 
+  //var  tx2 = await fanoutSdk.sendInstructions(
+ // [...ix3.instructions],
   // [...ix.instructions, ...ix3.instructions],
-  [],
+ // [],
   // @ts-ignore
-  wallet.publicKey
-  );
+ // wallet.publicKey
+  //);
   }
   }
   async function doit(){
