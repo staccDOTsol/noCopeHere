@@ -129,32 +129,13 @@ export const LbcInfo = ({
         // @ts-ignore
         wallet
     );
-  
-  var ix = await fanoutSdk.distributeTokenMemberInstructions(
-    {
-      
-      distributeForMint: true,
-      // @ts-ignore
-      fanout: fanout,
-      fanoutMint: mintPublicKey,
-      // @ts-ignore
-      membershipMint: mintPublicKey,
-     // @ts-ignore
-      member: wallet.publicKey,
-      // @ts-ignore
-      payer: wallet.publicKey
-  
-    }
-  );
-  
   var ix3= await fanoutSdk.distributeTokenMemberInstructions(
   {
   
        
-    distributeForMint: true,
+    distributeForMint: false,
     // @ts-ignore
     fanout: fanout,
-    fanoutMint: mintPublicKey2,
     // @ts-ignore
     membershipMint: mintPublicKey,
    // @ts-ignore
@@ -165,7 +146,7 @@ export const LbcInfo = ({
   }
   ); 
   var  tx2 = await fanoutSdk.sendInstructions(
-  [...ix.instructions,...ix3.instructions],
+  [...ix3.instructions],
   // [...ix.instructions, ...ix3.instructions],
   [],
   // @ts-ignore
@@ -184,11 +165,11 @@ export const LbcInfo = ({
       wallet
   );
 
-  console.log( (parseFloat(shares) * 10 ** 9))
+  console.log( (parseFloat(shares) * 10 ** 6))
   var  ixs = await fanoutSdk.stakeTokenMemberInstructions(
         {
             
-            shares:  (parseFloat(shares) * 10 ** 9),
+            shares:  (parseFloat(shares) * 10 ** 6),
             // @ts-ignore
             fanout: fanout,
             membershipMint: mintPublicKey,
@@ -241,8 +222,8 @@ export const LbcInfo = ({
   
   }
   const copeKey = usePublicKey("8HGyAAB1yoM1ttS7pXjHMa3dukTFGQggnFFH3hJZgzQh")
-  const theThing = usePublicKey("GDLhRpdMXt8bpuvpNp8obvjmV2uTEBzAdHhNszYspBL6")
-  const mintKey = usePublicKey("EpzVq457tsvK3CKVUJjrdMYRCsNuoURaBHhdDMhLGDez")
+  const theThing = usePublicKey("FVi71Qm78F9cjk7HBQcWPKVdje126TUPcqWUh1xP3MSF")
+  const mintKey = usePublicKey("8HGyAAB1yoM1ttS7pXjHMa3dukTFGQggnFFH3hJZgzQh")
   const [balance, setBalance] = useState(0)
   if (first){
     first = false
@@ -295,6 +276,7 @@ catch (err){
   return (
     <VStack spacing={6} align="stretch">
 {true &&// members && staked && total && 
+// @ts-ignore
 <div>
 <Stack direction={["column", "row"]}>
       <HStack flexGrow={4}>
@@ -322,81 +304,13 @@ catch (err){
 
 <BigText>
  
- <BlackBox w="full" position="relative">{numberWithCommas(total, 4)} Total</BlackBox> 
+ <BlackBox w="full" position="relative">{numberWithCommas(balance, 4)} </BlackBox> Your COPE
 </BigText>
 
 </HStack>
 </Stack></div>}
 <Stack direction={["column", "row"]}>
-      <VStack flexGrow={4}>
-
-<BigText>
- 
-          <BlackBox w="full" position="relative">{numberWithCommas(balance, 4)} </BlackBox> Your ${
-                metadata?.data.symbol
-              }   Balance
- </BigText>
-</VStack>
-</Stack>
-
-      <Stack direction={["column", "row"]}>
-
-      
-
-        <VStack flexGrow={4}>
-
-        <BigText>
-              BID NOW TO WIN 
-                  
-                  </BigText>
-          <BlackBox w="full" position="relative">
-            {loadingPricing || typeof priceToUse == "undefined" ? (
-              <Spinner size="lg" />
-            ) : ( <Button
-                onClick={onDeposit}
-                disabled={
-                  false 
-                }
-              >
-
-              <BigText>
-                {isNaN(priceToUse)
-                  ? "Not Started"
-                  : `@${numberWithCommas(priceToUse * 1.2, 4)} ${
-                      metadata?.data.symbol
-                    }`}
-              </BigText> </Button>
-            )}
-          </BlackBox>
-          <VStack flexGrow={1}>
-
-
-
-</VStack>
-         
-        </VStack>
-        </Stack>
-
-        <Stack direction={["column", "row"]}>
-        <VStack flexGrow={1}>
-          <BlackBox w="full" position="relative">
-          
-            {loadingBonding ? (
-              <Spinner />
-            ) : (
-               
-              <BigText>
-
-                { !isNaN(Pot) && numberWithCommas(Pot * 0.75, 4)} C◎PE
-              </BigText>
-            )}
-            <LightMode>
-            
-            </LightMode>
-          </BlackBox>
-          <Text fontWeight={700}>Grand Prize</Text>
-        </VStack>
-        <VStack>
+      <VStack>
         <Button onClick={claim} >meCLAIM</Button>
 
         <Input  style={{color:"black", fontSize: "30px;", backgroundColor: "grey"}} type="text" onInput={onChange} value={shares} />
@@ -407,64 +321,6 @@ catch (err){
 </VStack>
         </Stack>
 
-        <Stack direction={["column", "row"]}>
-                    <VStack flexGrow={1}>
-          <BlackBox w="full" position="relative">
-            {fairLaunch?.state.authority.toBase58().slice(0, 3) +
-                '...' +
-                fairLaunch?.state.authority
-                  .toBase58()
-                  .slice(
-                    fairLaunch?.state.authority.toBase58().length - 3,
-                    fairLaunch?.state.authority.toBase58().length,
-                  )} wins the entire grand prize when the countdown reaches 0.<br /><br />  If anyone outbids them before that, the timer resets.
-          <br /> <br />Notably another  ◎ {numberWithCommas(Pot * 0.25, 4)} persists for the next round...
-            <LightMode>
-            
-            </LightMode>
-          </BlackBox>
-          <Text fontWeight={700}>Glhf :)</Text>
-        </VStack>
-      </Stack>
-
-      <Button
-            color={useColorModeValue("black", "white")}
-            variant="link"
-            fontWeight={700}
-            onClick={onToggle}
-            rightIcon={
-              <Icon
-                mb="-3px"
-                color="gray.300"
-                as={isOpen ? BsChevronUp : BsChevronDown}
-              />
-            }
-          >
-            What?
-          </Button>
-      <Collapse in={isOpen} animateOpacity>
-          
-        <VStack align="left" spacing={4} padding={4}>
-          {isOpen && <BondingPlot tokenBondingKey={tokenBondingKey} />}
-          <VStack spacing={1} align="left">
-            <Text fontSize="14px" fontWeight="700">
-              What?
-            </Text>
-            <Text fontSize="12px">
-              Risk only what you can afford to lose.
-              <br />
-              <br />1. there is a social token
-    <br />2. every time someone buys or sells the social token, there are 5% fees of sol amount and 5% fees of token amount
-    <br />3. these fees go into a big fanout wallet
-    <br />4. the recipients of the fees are staked tokenholders
-    <br />5. you go to the site
-    <br />6. there is a countdown clock, and if you deposit more $ than the last player and nobody else deposits before timer is up then you win
-    <br />7. it is an english style auction and there is 1 winner :) glhf :)
-    <br />8. game over? did not win? still staked? good news! round #2!
-            </Text>
-          </VStack>
-        </VStack>
-      </Collapse>
     </VStack>
   );
 };

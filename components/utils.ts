@@ -40,7 +40,7 @@ export const formatNumber = {
       return undefined;
     }
 
-    return val.toNumber() / LAMPORTS_PER_SOL;
+    return val.toNumber() / 10 ** 6;
   },
 };
 

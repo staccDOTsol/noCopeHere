@@ -111,10 +111,10 @@ const anchorWallet = useMemo(() => {
     signTransaction: wallet.signTransaction,
   } as  any;
 }, [wallet]);
-if (firstlala && anchorWallet){
+console.log(anchorWallet)
+if (firstlala ){
   firstlala=false
 setTimeout(async function(){
-    if (anchorWallet){
   var connection2 = new Connection('https://ssc-dao.genesysgo.net/', "confirmed");
 
 const fanoutSdk = new FanoutClient(
@@ -127,13 +127,22 @@ const fanoutAccount = await fanoutSdk.fetch<Fanout>(
   Fanout
 )
 console.log(fanoutAccount)
+console.log(fanoutAccount)
+console.log(fanoutAccount)
+console.log(fanoutAccount)
+console.log(fanoutAccount)
+console.log(fanoutAccount)
+console.log(fanoutAccount)
+console.log(fanoutAccount)
+console.log(fanoutAccount)
+console.log(fanoutAccount)
 // @ts-ignore
 setTotal((formatNumber.asNumber(new anchor.BN(fanoutAccount?.totalShares))))
 // @ts-ignore
   setStaked((formatNumber.asNumber(new anchor.BN(fanoutAccount?.totalStakedShares))))
   // @ts-ignore
   setMembers(((new anchor.BN(fanoutAccount?.totalMembers))))
-    }
+    
 }, 500)
 
 setInterval(async function(){
@@ -164,7 +173,7 @@ setInterval(async function(){
 }, 15500)
 }
 var mintPublicKey2 =usePublicKey("CySuu3aePXaZ46bntayBYhQ8kWkA2hYz95F1Nqx11zWz")  
-var mintPublicKey = usePublicKey("EpzVq457tsvK3CKVUJjrdMYRCsNuoURaBHhdDMhLGDez")
+var mintPublicKey = usePublicKey("8HGyAAB1yoM1ttS7pXjHMa3dukTFGQggnFFH3hJZgzQh")
 
 
 
@@ -448,12 +457,12 @@ const BigText = ({ children, ...other }: TextProps) => {
   );
 };
 var mintPublicKey2 =usePublicKey("CySuu3aePXaZ46bntayBYhQ8kWkA2hYz95F1Nqx11zWz")  
-var mintPublicKey = usePublicKey("EpzVq457tsvK3CKVUJjrdMYRCsNuoURaBHhdDMhLGDez")
+var mintPublicKey = usePublicKey("8HGyAAB1yoM1ttS7pXjHMa3dukTFGQggnFFH3hJZgzQh")
 var bond1 = usePublicKey("GPXeSgtNTPVmWrCSTV6FrDYUGB3iGxSZWJYerYuZNBbu")
 var tokenBondingKey = bond1
 var bond2 = usePublicKey("9sEV1qZVas4EM2oVrwqGpad5Uv82eUzfeZ66jEphn5NV")
 var baseBondingKey = bond2
-var fanout = usePublicKey("CciLLcAb1b6ASATBTRptuXkRaCy4MrYJnuFUy7bWknfC")
+var fanout = usePublicKey("7SWQ8CK8BMvZFpVJ7a1vfVC14Cdw4Jsc7CZpkmRtnQCY")
 const { error, execute } = useSwap();
 const { handleErrors } = useErrorHandler();
 handleErrors(error);
@@ -564,7 +573,7 @@ var { loading: driverLoading, ...swapProps } = useSwapDriver({
                   tokenBondingKey={tokenBondingKey as PublicKey}
                   useTokenOfferingCurve
                 />
-                {!loading123 && min && min2 && 
+                {false && min && min2 && 
                 // @ts-ignore
     <SwapForm min={min * 1.2} isLoading={driverLoading} isSubmitting={loading} {...swapProps} />
                 }
@@ -580,7 +589,7 @@ var { loading: driverLoading, ...swapProps } = useSwapDriver({
 
 export const Home: NextPage = (props) => {
 
-  var fanout = usePublicKey("CciLLcAb1b6ASATBTRptuXkRaCy4MrYJnuFUy7bWknfC")
+  var fanout = usePublicKey("7SWQ8CK8BMvZFpVJ7a1vfVC14Cdw4Jsc7CZpkmRtnQCY")
 
 
   return (
