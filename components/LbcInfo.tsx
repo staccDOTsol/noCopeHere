@@ -43,7 +43,7 @@ import { useLivePrice } from "../hooks/useLivePrice";
 import { numberWithCommas } from "../utils/numberWithCommas";
 import { BondingPlot } from "./BondingPlot";
 import { Anchor } from "antd";
-
+const WRAPPED_SOL_MINT = new PublicKey("So11111111111111111111111111111111111111112")
 let first = true;
 const BlackBox = ({ children, ...other }: BoxProps) => {
   return (
@@ -129,8 +129,8 @@ export const LbcInfo = ({
         // @ts-ignore
         wallet
     );
-  var ix3= await fanoutSdk.distributeAll({fanout,mint:mintPublicKey,payer:wallet.publicKey})// .distributeTokenMember(
-  /*{
+  var ix3= await fanoutSdk.distributeTokenMemberInstructions(//{fanout,mint:WRAPPED_SOL_MINT,payer:wallet.publicKey})// .distributeTokenMember(
+  {
   
        
     distributeForMint: false,
@@ -144,14 +144,14 @@ export const LbcInfo = ({
     payer: wallet.publicKey
   
   }
-  );*/ 
-  //var  tx2 = await fanoutSdk.sendInstructions(
- // [...ix3.instructions],
+  );
+  var  tx2 = await fanoutSdk.sendInstructions(
+  [...ix3.instructions],
   // [...ix.instructions, ...ix3.instructions],
- // [],
+  [],
   // @ts-ignore
- // wallet.publicKey
-  //);
+  wallet.publicKey
+  );
   }
   }
   async function doit(){
