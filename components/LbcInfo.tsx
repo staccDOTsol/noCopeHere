@@ -121,6 +121,38 @@ export const LbcInfo = ({
 
   const { metadata } = useTokenMetadata(tokenBonding?.targetMint);
 
+  async function all(){
+    if (wallet){    var fanoutSdk: FanoutClient;
+      fanoutSdk = new FanoutClient(
+        connection2  ,
+        // @ts-ignore
+        wallet
+    );
+  var ix3= await fanoutSdk.distributeAllInstructions(//{fanout,mint:WRAPPED_SOL_MINT,payer:wallet.publicKey})// .distributeTokenMember(
+  {
+  
+       
+    mint: new PublicKey("So11111111111111111111111111111111111111112"),
+    fanout: fanout,
+    payer: wallet.publicKey
+  
+  }
+  );
+  var ix4= await fanoutSdk.distributeAllInstructions(//{fanout,mint:WRAPPED_SOL_MINT,payer:wallet.publicKey})// .distributeTokenMember(
+    {
+    
+         
+      mint: mintPublicKey,
+      fanout: fanout,
+      payer: wallet.publicKey
+    
+    }
+    );
+  await fanoutSdk.sendInstructions([...ix3.instructions,...ix4.instructions ], [], wallet.publicKey)
+
+}
+  }
+  
   async function claim(){
     if (wallet){    var fanoutSdk: FanoutClient;
       fanoutSdk = new FanoutClient(
@@ -321,6 +353,7 @@ catch (err){
         <Button  onClick={doit} >STAKEme</Button>
 
 <Button  onClick={us} >UNSTAKEALLme</Button>
+<Button  onClick={all} >distributeAll</Button>
 </VStack>
         </Stack>
 
