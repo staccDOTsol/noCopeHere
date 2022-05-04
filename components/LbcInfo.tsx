@@ -150,12 +150,16 @@ export const LbcInfo = ({
     );
     let mm = [] 
     for (var a of ix3.instructions){
-      mm.push(a)
+      for (var b of a){
+      mm.push(b)
+      }
     }
     for (var a of ix4.instructions){
-      mm.push(a)
-    }
-  await fanoutSdk.sendInstructions(mm, [], wallet.publicKey)
+      for (var b of a){
+        mm.push(b)
+        }
+          }
+  await fanoutSdk.sendInstructions([...mm], [], wallet.publicKey)
 
 }
   }
