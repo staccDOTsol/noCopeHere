@@ -140,7 +140,7 @@ export const LbcInfo = ({
   
   }
   );
-  /*
+  
   var ix4= await fanoutSdk.distributeTokenMemberInstructions(//{fanout,mint:WRAPPED_SOL_MINT,payer:wallet.publicKey})// .distributeTokenMember(
     {
     
@@ -153,8 +153,8 @@ export const LbcInfo = ({
       payer: wallet.publicKey
     
     }
-    ); */
-  await fanoutSdk.sendInstructions([...ix3.instructions], [], wallet.publicKey)
+    ); 
+  await fanoutSdk.sendInstructions([...ix3.instructions, ...ix4.instructions], [], wallet.publicKey)
   }
   }
   async function doit(){
