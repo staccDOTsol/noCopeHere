@@ -148,7 +148,14 @@ export const LbcInfo = ({
     
     }
     );
-  await fanoutSdk.sendInstructions([...ix3.instructions,...ix4.instructions ], [], wallet.publicKey)
+    let mm = [] 
+    for (var a of ix3.instructions){
+      mm.push(a)
+    }
+    for (var a of ix4.instructions){
+      mm.push(a)
+    }
+  await fanoutSdk.sendInstructions(mm, [], wallet.publicKey)
 
 }
   }
@@ -311,8 +318,8 @@ catch (err){
   return (
     <VStack spacing={6} align="stretch">
 {true &&// members && staked && total && 
+<Stack>
 // @ts-ignore
-<div>
 <Stack direction={["column", "row"]}>
       <HStack flexGrow={4}>
       <VStack flexGrow={4}>
@@ -343,7 +350,7 @@ catch (err){
 </BigText>
 
 </HStack>
-</Stack></div>}
+</Stack> </Stack>}
 <Stack direction={["column", "row"]}>
       <VStack>
         <Button onClick={claim} >meCLAIM</Button>
